@@ -7,6 +7,7 @@ import {
   Search,
   BarChart3
 } from "lucide-react";
+import Image from "next/image";
 
 const features = [
   {
@@ -84,18 +85,21 @@ export default function FeaturesSection() {
         </div>
 
         {/* Example Dashboard Preview */}
-        <div 
-          className="mt-20 text-center"
-        >
-          <div className="bg-white shadow-lg rounded-xl p-8 relative overflow-hidden border border-gray-100">
+        <div className="mt-20 text-center">
+          <div className="bg-white shadow-2xl rounded-xl p-8 relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-purple-50 mix-blend-multiply" />
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Real-Time Analytics Dashboard</h3>
-            <p className="text-gray-600 mb-8">Track performance metrics, engagement rates, and content analytics all in one place</p>
-            <img 
-              src="/images/dashboard-preview.png" 
-              alt="Analytics Dashboard" 
-              className="rounded-lg shadow-xl border border-gray-200"
-            />
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">Powerful Analytics Dashboard</h3>
+            <p className="text-gray-600 mb-8">Get detailed insights into hashtag performance, engagement rates, and content analytics</p>
+            <div className="relative rounded-lg overflow-hidden shadow-xl">
+              <Image
+                src="/images/dashboard/analytics.png"
+                alt="AimVertical Analytics Dashboard"
+                width={1200}
+                height={675}
+                className="w-full h-auto"
+                priority
+              />
+            </div>
           </div>
         </div>
       </div>

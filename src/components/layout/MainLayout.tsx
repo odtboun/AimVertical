@@ -19,29 +19,29 @@ export default function MainLayout({ children }: MainLayoutProps) {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white relative">
+    <div className="min-h-screen relative">
       {/* Continuous background layer with parallax effect */}
       <div className="fixed inset-0 pointer-events-none">
         {/* Soft gradient shapes with parallax effect */}
         <div 
-          className="absolute top-0 left-0 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob"
-          style={{ transform: `translateY(${scrollY * 0.05}px)` }}
+          className="absolute top-0 left-0 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-[150px] opacity-70 animate-blob"
+          style={{ transform: `translateY(${-scrollY * 0.5}px)` }}
         />
         <div 
-          className="absolute top-0 right-0 w-96 h-96 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-2000"
-          style={{ transform: `translateY(${scrollY * 0.03}px)` }}
+          className="absolute top-0 right-0 w-96 h-96 bg-purple-200 rounded-full mix-blend-multiply filter blur-[150px] opacity-70 animate-blob animation-delay-2000"
+          style={{ transform: `translateY(${-scrollY * 0.3}px)` }}
         />
         <div 
-          className="absolute bottom-0 left-1/2 w-96 h-96 bg-pink-200 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-4000"
-          style={{ transform: `translateY(${scrollY * 0.07}px)` }}
+          className="absolute bottom-0 left-1/2 w-96 h-96 bg-pink-200 rounded-full mix-blend-multiply filter blur-[150px] opacity-70 animate-blob animation-delay-4000"
+          style={{ transform: `translateY(${-scrollY * 0.7}px)` }}
         />
         <div 
-          className="absolute top-1/2 right-1/4 w-96 h-96 bg-yellow-200 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-6000"
-          style={{ transform: `translateY(${scrollY * 0.02}px)` }}
+          className="absolute top-1/2 right-1/4 w-96 h-96 bg-yellow-200 rounded-full mix-blend-multiply filter blur-[150px] opacity-70 animate-blob animation-delay-6000"
+          style={{ transform: `translateY(${-scrollY * 0.2}px)` }}
         />
         <div 
-          className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-green-200 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-8000"
-          style={{ transform: `translateY(${scrollY * 0.04}px)` }}
+          className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-green-200 rounded-full mix-blend-multiply filter blur-[150px] opacity-70 animate-blob animation-delay-8000"
+          style={{ transform: `translateY(${-scrollY * 0.4}px)` }}
         />
       </div>
       <header className="fixed top-0 w-full bg-white z-50">
@@ -65,7 +65,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
       <main className="relative z-10 pt-20">
         {children}
       </main>
-      <footer className="bg-white text-gray-600 py-12">
+      <footer className="bg-white text-gray-600 py-12 relative z-10">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
@@ -96,7 +96,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
               </ul>
             </div>
           </div>
-          <div className="mt-12 pt-8 text-center text-gray-500">
+          <div className="mt-12 text-center text-gray-500">
             <p>&copy; {new Date().getFullYear()} AimVertical. All rights reserved.</p>
           </div>
         </div>
