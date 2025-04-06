@@ -1,4 +1,7 @@
+"use client";
+
 import { Check } from 'lucide-react';
+import { useState } from 'react';
 
 interface PricingTier {
   name: string;
@@ -80,6 +83,12 @@ const pricingTiers: PricingTier[] = [
 ];
 
 export default function PricingSection() {
+  const [isAnnual, setIsAnnual] = useState(true);
+
+  const calculateAnnualSavings = (monthly: number, annual: number) => {
+    return ((monthly * 12) - (annual * 12)).toFixed(0);
+  };
+
   return (
     <section id="pricing" className="py-20 relative">
       <div className="container mx-auto px-4">
@@ -87,9 +96,26 @@ export default function PricingSection() {
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Choose Your Growth Plan
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
             Scale your social media presence with our powerful analytics and insights
           </p>
+
+          {/* Billing Switch */}
+          <div className="flex items-center justify-center gap-4 mb-8">
+            <span className={`text-sm font-medium ${!isAnnual ? 'text-gray-900' : 'text-gray-500'}`}>Monthly</span>
+            <button
+              onClick={() => setIsAnnual(!isAnnual)}
+              className="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              style={{ backgroundColor: isAnnual ? '#3B82F6' : '#E5E7EB' }}
+            >
+              <span
+                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                  isAnnual ? 'translate-x-6' : 'translate-x-1'
+                }`}
+              />
+            </button>
+            <span className={`text-sm font-medium ${isAnnual ? 'text-gray-900' : 'text-gray-500'}`}>Annual</span>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
@@ -112,13 +138,22 @@ export default function PricingSection() {
                     </div>
                   ) : (
                     <>
-                      <div className="text-gray-900">
-                        <span className="text-4xl font-bold">${tier.price.monthly}</span>
+                      <div className="text-gray-900 flex items-baseline gap-2">
+                        <span className="text-4xl font-bold">
+                          ${isAnnual ? tier.price.annual : tier.price.monthly}
+                        </span>
                         <span className="text-gray-600">/mo</span>
+                        {isAnnual && tier.price.monthly > tier.price.annual && (
+                          <span className="text-lg text-gray-500 line-through">
+                            ${tier.price.monthly}
+                          </span>
+                        )}
                       </div>
-                      <div className="text-sm text-gray-600 mt-1">
-                        ${tier.price.annual}/mo billed annually
-                      </div>
+                      {isAnnual && tier.price.monthly > tier.price.annual && (
+                        <div className="text-sm text-green-600 mt-1">
+                          Save ${calculateAnnualSavings(tier.price.monthly, tier.price.annual)} per year
+                        </div>
+                      )}
                     </>
                   )}
                 </div>

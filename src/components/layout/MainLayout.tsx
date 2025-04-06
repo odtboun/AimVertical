@@ -2,6 +2,9 @@
 
 import { ReactNode, useEffect, useState } from 'react';
 import Image from 'next/image';
+import { Space_Grotesk } from 'next/font/google';
+
+const spaceGrotesk = Space_Grotesk({ subsets: ["latin"] });
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -45,9 +48,9 @@ export default function MainLayout({ children }: MainLayoutProps) {
           style={{ transform: `translateY(${-scrollY * 0.4}px)` }}
         />
       </div>
-      <header className="fixed top-0 w-full bg-white z-50">
+      <header className="fixed top-0 w-full bg-white/80 backdrop-blur-sm z-50 border-b border-gray-100">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <Image
               src="/images/dashboard/logo.png"
               alt="AimVertical Logo"
@@ -55,7 +58,9 @@ export default function MainLayout({ children }: MainLayoutProps) {
               height={48}
               className="w-12 h-12"
             />
-            <div className="text-2xl font-bold text-gray-900">AimVertical</div>
+            <div className="font-plus-jakarta text-2xl font-semibold text-gray-900 tracking-tight">
+              AimVertical
+            </div>
           </div>
           <nav className="hidden md:flex items-center gap-8">
             <a href="#features" className="text-gray-600 hover:text-gray-900 transition-colors">Features</a>
