@@ -9,39 +9,50 @@ export default function AuthCallbackPage() {
 
   useEffect(() => {
     const handleAuthCallback = async () => {
-      const { data: { session }, error } = await supabase.auth.getSession();
-      
-      if (error) {
-        console.error('Error during auth callback:', error.message);
-        router.push('/signup?error=auth-callback-failed');
-        return;
-      }
-
-      if (session) {
-        // Get the selected plan from localStorage
-        const selectedPlan = localStorage.getItem('selected_plan') || 'basic';
+      try {
+        const { data: { session }, error } = await supabase.auth.getSession();
         
-        // Create user profile
-        const { error: profileError } = await createUserProfile(
-          session.user.id,
-          session.user.email!,
-          selectedPlan
-        );
-
-        if (profileError) {
-          console.error('Error creating user profile:', profileError.message);
-          router.push('/signup?error=profile-creation-failed');
+        if (error) {
+          console.error('Error during auth callback:', error.message);
+          router.push('/signup?error=auth-callback-failed');
           return;
         }
 
-        // Clear the selected plan from localStorage
-        localStorage.removeItem('selected_plan');
+        if (session?.user) {
+          // Get the selected plan from localStorage
+          const selectedPlan = localStorage.getItem('selected_plan') || 'basic';
+          
+          try {
+            // Create user profile
+            const { error: profileError } = await createUserProfile(
+              session.user.id,
+              session.user.email!,
+              selectedPlan
+            );
 
-        // Successfully authenticated and profile created
-        router.push('/signup/success');
-      } else {
-        // No session found
-        router.push('/signup?error=no-session');
+            if (profileError) {
+              console.error('Error creating user profile:', profileError);
+              // Even if profile creation fails, we'll still redirect to success
+              // since the user is authenticated
+            }
+
+            // Clear the selected plan from localStorage
+            localStorage.removeItem('selected_plan');
+
+            // Successfully authenticated
+            router.push('/signup/success');
+          } catch (error) {
+            console.error('Error in profile creation:', error);
+            // Still redirect to success since auth worked
+            router.push('/signup/success');
+          }
+        } else {
+          // No session found
+          router.push('/signup?error=no-session');
+        }
+      } catch (error) {
+        console.error('Unexpected error:', error);
+        router.push('/signup?error=unexpected');
       }
     };
 
