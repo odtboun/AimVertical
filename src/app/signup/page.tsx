@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { signUpWithMagicLink } from '@/lib/supabase';
 
@@ -11,7 +11,6 @@ export default function SignUpPage() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [plan, setPlan] = useState('');
-  const router = useRouter();
   const searchParams = useSearchParams();
 
   useEffect(() => {
@@ -27,12 +26,13 @@ export default function SignUpPage() {
     setError(null);
 
     try {
-      const { error } = await signUpWithMagicLink(email, plan);
+      const { error: signUpError } = await signUpWithMagicLink(email, plan);
 
-      if (error) throw error;
+      if (signUpError) throw signUpError;
       setSuccess(true);
-    } catch (error: any) {
-      setError(error.message);
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -50,7 +50,7 @@ export default function SignUpPage() {
           </p>
         )}
         <p className="mt-2 text-center text-sm text-gray-600">
-          Or{' '}
+          Or&nbsp;
           <Link href="/" className="font-medium text-indigo-600 hover:text-indigo-500">
             return to home
           </Link>
@@ -63,7 +63,7 @@ export default function SignUpPage() {
             <div className="text-center">
               <h3 className="text-lg font-medium text-gray-900">Check your email</h3>
               <p className="mt-2 text-sm text-gray-500">
-                We've sent you a magic link to complete your signup. Please check your email.
+                We&apos;ve sent you a magic link to complete your signup. Please check your email.
               </p>
             </div>
           ) : (
