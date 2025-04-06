@@ -1,9 +1,9 @@
 // This script creates the user_profiles table in Supabase
 const { createClient } = require('@supabase/supabase-js');
 
-// Supabase credentials
-const supabaseUrl = 'https://shchuffeoricigiospeu.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNoY2h1ZmZlb3JpY2lnaW9zcGV1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM5MzkxNjEsImV4cCI6MjA1OTUxNTE2MX0.-22An7VIQdNe0hAzKeTAPM5hDf3ZEjtgkpj9DFe-mI8';
+// Supabase credentials from environment variables
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 
 // Create Supabase client
 const supabase = createClient(supabaseUrl, supabaseKey);
