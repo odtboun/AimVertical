@@ -1,30 +1,29 @@
 "use client";
 
 import Link from "next/link";
-import { CheckCircle } from 'lucide-react';
 
 export default function SignUpSuccessPage() {
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="text-center">
-          <h2 className="text-3xl font-extrabold text-gray-900">
-            Thank you for signing up!
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8 text-center">
+        <div>
+          <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
+            You&apos;re Almost Ready!
           </h2>
-          <p className="mt-4 text-lg text-gray-600">
-            We've sent you a confirmation email. Please check your inbox to verify your account.
+          <p className="mt-2 text-base text-gray-700">
+            We are working on a big update to the AimVertical Dashboard. We&apos;ll follow up with the next steps when it&apos;s ready. You&apos;ll not be charged until then, and we&apos;ll apply a special discount for signing up during this period ❤️
           </p>
-          <p className="mt-4 text-sm text-gray-500">
-            Our team will reach out to you shortly for onboarding. In the meantime, feel free to explore our website.
+          <p className="mt-4 text-sm text-gray-600">
+            Thanks for joining!
           </p>
-          <div className="mt-6">
-            <Link
-              href="/"
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            >
-              Return to Home
-            </Link>
-          </div>
+        </div>
+        <div>
+          <Link
+            href="/"
+            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            Return to Home
+          </Link>
         </div>
       </div>
     </div>
