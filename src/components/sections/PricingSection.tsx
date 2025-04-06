@@ -89,6 +89,10 @@ export default function PricingSection() {
     return ((monthly * 12) - (annual * 12)).toFixed(0);
   };
 
+  const handleGetStarted = (plan: string) => {
+    window.location.href = `/signup?plan=${plan}`;
+  };
+
   return (
     <section id="pricing" className="py-20 relative">
       <div className="container mx-auto px-4">
@@ -167,12 +171,15 @@ export default function PricingSection() {
                   ))}
                 </ul>
 
-                <button className={`
-                  w-full py-3 px-6 rounded-lg font-semibold transition-colors
-                  ${tier.highlight 
-                    ? 'bg-blue-600 hover:bg-blue-700 text-white' 
-                    : 'bg-gray-100 hover:bg-gray-200 text-gray-900'}
-                `}>
+                <button 
+                  onClick={() => handleGetStarted(tier.name.toLowerCase().replace('aimvertical ', ''))}
+                  className={`
+                    w-full py-3 px-6 rounded-lg font-semibold transition-colors
+                    ${tier.highlight 
+                      ? 'bg-blue-600 hover:bg-blue-700 text-white' 
+                      : 'bg-gray-100 hover:bg-gray-200 text-gray-900'}
+                  `}
+                >
                   Get Started
                 </button>
               </div>

@@ -73,9 +73,9 @@ export default function MainLayout({ children }: MainLayoutProps) {
           </nav>
           <div className="flex items-center gap-4">
             <a href="#contact" className="hidden md:block text-gray-600 hover:text-gray-900 transition-colors">Contact</a>
-            <button className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 md:px-4 md:py-2 rounded-lg transition-colors text-sm md:text-base">
+            <a href="#pricing" className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 md:px-4 md:py-2 rounded-lg transition-colors text-sm md:text-base">
               Get Started
-            </button>
+            </a>
           </div>
         </div>
       </header>

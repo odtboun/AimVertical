@@ -66,9 +66,9 @@ export default function HowItWorksSection() {
             <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-purple-50 mix-blend-multiply" />
             <h3 className="text-2xl font-bold text-gray-900 mb-4">Ready to Transform Your Social Media Strategy?</h3>
             <p className="text-gray-600 mb-8">Join thousands of creators who are already using AimVertical to create viral content</p>
-            <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors">
+            <a href="#pricing" className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors">
               Get Started
-            </button>
+            </a>
           </div>
         </div>
       </div>

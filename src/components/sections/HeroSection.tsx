@@ -30,9 +30,9 @@ export default function HeroSection() {
                 className="w-7 h-7 opacity-60 hover:opacity-100 transition-opacity text-gray-900" 
               />
             </div>
-            <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors">
+            <a href="#pricing" className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors">
               Get Started
-            </button>
+            </a>
             <div className="flex items-center gap-8">
               <Youtube 
                 className="w-7 h-7 opacity-60 hover:opacity-100 transition-opacity text-gray-900"
