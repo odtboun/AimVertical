@@ -2,9 +2,13 @@
 
 import { ReactNode, useEffect, useState } from 'react';
 import Image from 'next/image';
-import { Space_Grotesk } from 'next/font/google';
+import { cn } from "@/lib/utils";
+import { Plus_Jakarta_Sans } from "next/font/google";
 
-const spaceGrotesk = Space_Grotesk({ subsets: ["latin"] });
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-plus-jakarta-sans",
+});
 
 interface MainLayoutProps {
   children: ReactNode;
