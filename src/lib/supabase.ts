@@ -7,53 +7,49 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 // Create a single supabase client for interacting with your database
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-// Helper function to sign up a user
-export const signUp = async (email: string, password: string, plan: string) => {
+// Helper function to sign up a user with magic link
+export const signUpWithMagicLink = async (email: string, plan: string) => {
   try {
-    // First, sign up the user
-    const { data: authData, error: authError } = await supabase.auth.signUp({
+    // Send magic link
+    const { data, error } = await supabase.auth.signInWithOtp({
       email,
-      password,
+      options: {
+        emailRedirectTo: `${window.location.origin}/auth/callback`,
+      },
     });
 
-    if (authError) {
-      return { data: null, error: authError };
+    if (error) {
+      return { data: null, error };
     }
 
-    // Then, store the plan information in a separate table
-    if (authData.user) {
-      const { error: profileError } = await supabase
-        .from('user_profiles')
-        .insert([
-          {
-            user_id: authData.user.id,
-            email: email,
-            plan: plan,
-            created_at: new Date().toISOString(),
-          },
-        ]);
-
-      if (profileError) {
-        return { data: authData, error: profileError };
-      }
+    // Store the plan in localStorage for later use after email verification
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('selected_plan', plan);
     }
 
-    return { data: authData, error: null };
+    return { data, error: null };
   } catch (error) {
     return { data: null, error: { message: 'An unexpected error occurred' } };
   }
 };
 
-// Helper function to sign in a user
-export const signIn = async (email: string, password: string) => {
+// Helper function to create user profile after email verification
+export const createUserProfile = async (userId: string, email: string, plan: string) => {
   try {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    return { data, error };
+    const { error } = await supabase
+      .from('user_profiles')
+      .insert([
+        {
+          user_id: userId,
+          email: email,
+          plan: plan,
+          created_at: new Date().toISOString(),
+        },
+      ]);
+
+    return { error };
   } catch (error) {
-    return { data: null, error: { message: 'An unexpected error occurred' } };
+    return { error: { message: 'An unexpected error occurred' } };
   }
 };
 

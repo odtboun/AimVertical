@@ -1,21 +1,25 @@
 'use client';
 
-import { useState } from 'react';
-import { createClient } from '@supabase/supabase-js';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+import { signUpWithMagicLink } from '@/lib/supabase';
 
 export default function SignUpPage() {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+  const [plan, setPlan] = useState('');
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const planParam = searchParams.get('plan');
+    if (planParam) {
+      setPlan(planParam);
+    }
+  }, [searchParams]);
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,12 +27,7 @@ export default function SignUpPage() {
     setError(null);
 
     try {
-      const { error } = await supabase.auth.signInWithOtp({
-        email,
-        options: {
-          emailRedirectTo: `${window.location.origin}/auth/callback`,
-        },
-      });
+      const { error } = await signUpWithMagicLink(email, plan);
 
       if (error) throw error;
       setSuccess(true);
@@ -45,6 +44,11 @@ export default function SignUpPage() {
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
           Sign up for AimVertical
         </h2>
+        {plan && (
+          <p className="mt-2 text-center text-sm text-gray-600">
+            Signing up for the {plan.charAt(0).toUpperCase() + plan.slice(1)} plan
+          </p>
+        )}
         <p className="mt-2 text-center text-sm text-gray-600">
           Or{' '}
           <Link href="/" className="font-medium text-indigo-600 hover:text-indigo-500">

@@ -9,8 +9,8 @@ const plusJakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "AimVertical - Data-Driven Social Media Analytics",
-  description: "Transform your social media strategy with data-driven insights for TikTok, Instagram, and Facebook.",
+  title: "AimVertical",
+  description: "AI-powered vertical farming solutions",
   icons: {
     icon: '/favicon.ico',
     shortcut: '/favicon.ico',

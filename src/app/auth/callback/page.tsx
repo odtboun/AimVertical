@@ -1,13 +1,8 @@
 'use client';
 
 import { useEffect } from 'react';
-import { createClient } from '@supabase/supabase-js';
 import { useRouter } from 'next/navigation';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+import { supabase, createUserProfile } from '@/lib/supabase';
 
 export default function AuthCallbackPage() {
   const router = useRouter();
@@ -23,7 +18,26 @@ export default function AuthCallbackPage() {
       }
 
       if (session) {
-        // Successfully authenticated
+        // Get the selected plan from localStorage
+        const selectedPlan = localStorage.getItem('selected_plan') || 'basic';
+        
+        // Create user profile
+        const { error: profileError } = await createUserProfile(
+          session.user.id,
+          session.user.email!,
+          selectedPlan
+        );
+
+        if (profileError) {
+          console.error('Error creating user profile:', profileError.message);
+          router.push('/signup?error=profile-creation-failed');
+          return;
+        }
+
+        // Clear the selected plan from localStorage
+        localStorage.removeItem('selected_plan');
+
+        // Successfully authenticated and profile created
         router.push('/signup/success');
       } else {
         // No session found
