@@ -27,7 +27,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
   }, []);
 
   return (
-    <div className="min-h-screen relative">
+    <div className={cn("min-h-screen relative", plusJakartaSans.variable)}>
       {/* Continuous background layer with parallax effect */}
       <div className="fixed inset-0 pointer-events-none">
         {/* Soft gradient shapes with parallax effect */}
