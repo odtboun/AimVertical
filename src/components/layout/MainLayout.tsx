@@ -30,25 +30,25 @@ export default function MainLayout({ children }: MainLayoutProps) {
     <div className={cn("min-h-screen relative", plusJakartaSans.variable)}>
       {/* Continuous background layer with parallax effect */}
       <div className="fixed inset-0 pointer-events-none">
-        {/* Soft gradient shapes with parallax effect */}
+        {/* Soft gradient shapes with parallax effect - smaller on mobile */}
         <div 
-          className="absolute top-0 left-0 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-[150px] opacity-70 animate-blob"
+          className="absolute top-0 left-0 w-48 md:w-96 h-48 md:h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-[100px] md:blur-[150px] opacity-50 md:opacity-70 animate-blob"
           style={{ transform: `translateY(${-scrollY * 0.5}px)` }}
         />
         <div 
-          className="absolute top-0 right-0 w-96 h-96 bg-purple-200 rounded-full mix-blend-multiply filter blur-[150px] opacity-70 animate-blob animation-delay-2000"
+          className="absolute top-0 right-0 w-48 md:w-96 h-48 md:h-96 bg-purple-200 rounded-full mix-blend-multiply filter blur-[100px] md:blur-[150px] opacity-50 md:opacity-70 animate-blob animation-delay-2000"
           style={{ transform: `translateY(${-scrollY * 0.3}px)` }}
         />
         <div 
-          className="absolute bottom-0 left-1/2 w-96 h-96 bg-pink-200 rounded-full mix-blend-multiply filter blur-[150px] opacity-70 animate-blob animation-delay-4000"
+          className="absolute bottom-0 left-1/2 w-48 md:w-96 h-48 md:h-96 bg-pink-200 rounded-full mix-blend-multiply filter blur-[100px] md:blur-[150px] opacity-50 md:opacity-70 animate-blob animation-delay-4000"
           style={{ transform: `translateY(${-scrollY * 0.7}px)` }}
         />
         <div 
-          className="absolute top-1/2 right-1/4 w-96 h-96 bg-yellow-200 rounded-full mix-blend-multiply filter blur-[150px] opacity-70 animate-blob animation-delay-6000"
+          className="absolute top-1/2 right-1/4 w-48 md:w-96 h-48 md:h-96 bg-yellow-200 rounded-full mix-blend-multiply filter blur-[100px] md:blur-[150px] opacity-50 md:opacity-70 animate-blob animation-delay-6000"
           style={{ transform: `translateY(${-scrollY * 0.2}px)` }}
         />
         <div 
-          className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-green-200 rounded-full mix-blend-multiply filter blur-[150px] opacity-70 animate-blob animation-delay-8000"
+          className="absolute bottom-1/4 left-1/4 w-48 md:w-96 h-48 md:h-96 bg-green-200 rounded-full mix-blend-multiply filter blur-[100px] md:blur-[150px] opacity-50 md:opacity-70 animate-blob animation-delay-8000"
           style={{ transform: `translateY(${-scrollY * 0.4}px)` }}
         />
       </div>
@@ -60,9 +60,9 @@ export default function MainLayout({ children }: MainLayoutProps) {
               alt="AimVertical Logo"
               width={48}
               height={48}
-              className="w-12 h-12"
+              className="w-10 h-10 md:w-12 md:h-12"
             />
-            <div className="font-plus-jakarta text-2xl font-semibold text-gray-900 tracking-tight">
+            <div className="font-plus-jakarta text-xl md:text-2xl font-semibold text-gray-900 tracking-tight">
               AimVertical
             </div>
           </div>
@@ -72,8 +72,8 @@ export default function MainLayout({ children }: MainLayoutProps) {
             <a href="#pricing" className="text-gray-600 hover:text-gray-900 transition-colors">Pricing</a>
           </nav>
           <div className="flex items-center gap-4">
-            <a href="#contact" className="text-gray-600 hover:text-gray-900 transition-colors">Contact</a>
-            <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
+            <a href="#contact" className="hidden md:block text-gray-600 hover:text-gray-900 transition-colors">Contact</a>
+            <button className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 md:px-4 md:py-2 rounded-lg transition-colors text-sm md:text-base">
               Get Started
             </button>
           </div>
