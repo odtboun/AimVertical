@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactNode, useEffect, useState } from 'react';
+import Image from 'next/image';
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -47,6 +48,13 @@ export default function MainLayout({ children }: MainLayoutProps) {
       <header className="fixed top-0 w-full bg-white z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
+            <Image
+              src="/images/dashboard/logo.png"
+              alt="AimVertical Logo"
+              width={48}
+              height={48}
+              className="w-12 h-12"
+            />
             <div className="text-2xl font-bold text-gray-900">AimVertical</div>
           </div>
           <nav className="hidden md:flex items-center gap-8">
