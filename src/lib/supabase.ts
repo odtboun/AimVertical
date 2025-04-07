@@ -88,7 +88,7 @@ export const signUpWithMagicLink = async (email: string, plan: string) => {
       },
     });
     return { data, error };
-  } catch (error) {
+  } catch (_error) {
     return { error: { message: 'An unexpected error occurred' } };
   }
 }; 
