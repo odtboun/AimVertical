@@ -43,7 +43,7 @@ export async function getCurrentUser() {
 export async function createUserProfile(userId: string, email: string, plan: string) {
   try {
     // Check if the user_profiles table exists
-    const { data: tableExists, error: tableError } = await supabase
+    const { error: tableError } = await supabase
       .from('user_profiles')
       .select('id')
       .limit(1);
