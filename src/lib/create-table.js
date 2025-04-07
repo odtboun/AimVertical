@@ -8,7 +8,4 @@ export async function createTable() {
     throw error;
   }
   console.log('Table created successfully');
-}
-
-// Execute the function
-createTable(); 
+} 

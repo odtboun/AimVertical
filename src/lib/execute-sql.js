@@ -8,7 +8,4 @@ export async function executeSQL(sql) {
     throw error;
   }
   console.log('SQL executed successfully');
-}
-
-// Execute the function
-executeSQL(); 
+} 

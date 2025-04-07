@@ -1,15 +1,7 @@
 // This script sets up the database in Supabase
-import { createClient } from '@supabase/supabase-js';
-import { readFileSync } from 'fs';
+import { supabase } from './supabase';
 import { createTable } from './create-table';
 import { executeSQL } from './execute-sql';
-
-// Supabase credentials from environment variables
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
-
-// Create Supabase client
-const supabase = createClient(supabaseUrl, supabaseKey);
 
 export async function setupDatabase() {
   try {
