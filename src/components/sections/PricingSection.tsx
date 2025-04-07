@@ -90,7 +90,7 @@ export default function PricingSection() {
   };
 
   const handleGetStarted = (plan: string) => {
-    window.location.href = `/signup?plan=${plan}`;
+    window.location.href = `/signup?plan=${plan}&interval=${isAnnual ? 'year' : 'month'}`;
   };
 
   return (

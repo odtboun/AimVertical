@@ -11,12 +11,17 @@ function SignUpForm() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [plan, setPlan] = useState('');
+  const [interval, setInterval] = useState('');
   const searchParams = useSearchParams();
 
   useEffect(() => {
     const planParam = searchParams.get('plan');
+    const intervalParam = searchParams.get('interval');
     if (planParam) {
       setPlan(planParam);
+    }
+    if (intervalParam) {
+      setInterval(intervalParam);
     }
   }, [searchParams]);
 
@@ -26,7 +31,7 @@ function SignUpForm() {
     setError(null);
 
     try {
-      const { error: signUpError } = await signUpWithMagicLink(email, plan);
+      const { error: signUpError } = await signUpWithMagicLink(email, plan, interval);
 
       if (signUpError) throw signUpError;
       setSuccess(true);
@@ -47,6 +52,7 @@ function SignUpForm() {
         {plan && (
           <p className="mt-2 text-center text-sm text-gray-600">
             Signing up for the {plan.charAt(0).toUpperCase() + plan.slice(1)} plan
+            {interval && ` (${interval}ly billing)`}
           </p>
         )}
         <p className="mt-2 text-center text-sm text-gray-600">

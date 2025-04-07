@@ -14,13 +14,14 @@ if (!supabaseUrl || !supabaseAnonKey) {
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 // Helper functions for auth
-export async function signUp(email: string, password: string, plan: string) {
+export async function signUp(email: string, password: string, plan: string, interval: string) {
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
       data: {
         plan,
+        interval,
       },
     },
   });
@@ -46,7 +47,7 @@ export async function getCurrentUser() {
 }
 
 // Helper function to create a user profile
-export async function createUserProfile(userId: string, email: string, plan: string) {
+export async function createUserProfile(userId: string, email: string, plan: string, interval: string) {
   try {
     // Check if the user_profiles table exists
     const { error: tableError } = await supabase
@@ -67,6 +68,7 @@ export async function createUserProfile(userId: string, email: string, plan: str
           user_id: userId,
           email,
           plan,
+          interval,
         },
       ]);
     
@@ -83,12 +85,13 @@ export async function createUserProfile(userId: string, email: string, plan: str
 }
 
 // Helper function to sign up a user with magic link
-export const signUpWithMagicLink = async (email: string, plan: string) => {
+export const signUpWithMagicLink = async (email: string, plan: string, interval: string) => {
   const { data, error } = await supabase.auth.signInWithOtp({
     email,
     options: {
       data: {
         plan,
+        interval,
       },
     },
   });
