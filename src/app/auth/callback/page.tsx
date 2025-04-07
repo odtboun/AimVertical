@@ -21,13 +21,15 @@ export default function AuthCallbackPage() {
         if (session?.user) {
           // Get the selected plan from localStorage
           const selectedPlan = localStorage.getItem('selected_plan') || 'basic';
+          const selectedInterval = localStorage.getItem('selected_interval') || 'month';
           
           try {
             // Create user profile
             const result = await createUserProfile(
               session.user.id,
               session.user.email!,
-              selectedPlan
+              selectedPlan,
+              selectedInterval
             );
 
             // Check if the profile was created successfully
@@ -39,6 +41,7 @@ export default function AuthCallbackPage() {
 
             // Clear the selected plan from localStorage
             localStorage.removeItem('selected_plan');
+            localStorage.removeItem('selected_interval');
 
             // Successfully authenticated
             router.push('/signup/success');

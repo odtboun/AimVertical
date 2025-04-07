@@ -19,9 +19,15 @@ function SignUpForm() {
     const intervalParam = searchParams.get('interval');
     if (planParam) {
       setPlan(planParam);
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('selected_plan', planParam);
+      }
     }
     if (intervalParam) {
       setInterval(intervalParam);
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('selected_interval', intervalParam);
+      }
     }
   }, [searchParams]);
 
