@@ -9,7 +9,7 @@ const nextConfig = {
   webpack: (config, { isServer }) => {
     // Exclude migration scripts from the build
     config.module.rules.push({
-      test: /migrations\/.*\.ts$/,
+      test: /scripts\/.*\.ts$/,
       loader: 'ignore-loader',
     });
     return config;
