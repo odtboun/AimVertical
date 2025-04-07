@@ -24,14 +24,15 @@ export default function AuthCallbackPage() {
           
           try {
             // Create user profile
-            const { error: profileError } = await createUserProfile(
+            const result = await createUserProfile(
               session.user.id,
               session.user.email!,
               selectedPlan
             );
 
-            if (profileError) {
-              console.error('Error creating user profile:', profileError);
+            // Check if the profile was created successfully
+            if (!result.success) {
+              console.error('Error creating user profile');
               // Even if profile creation fails, we'll still redirect to success
               // since the user is authenticated
             }
@@ -51,7 +52,7 @@ export default function AuthCallbackPage() {
           router.push('/signup?error=no-session');
         }
       } catch (error) {
-        console.error('Unexpected error:', error);
+        console.error('Unexpected error during auth callback:', error);
         router.push('/signup?error=unexpected');
       }
     };
@@ -60,14 +61,14 @@ export default function AuthCallbackPage() {
   }, [router]);
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="text-center">
-          <h2 className="text-3xl font-extrabold text-gray-900">
-            Completing sign up...
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8 text-center">
+        <div>
+          <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
+            Completing your signup...
           </h2>
           <p className="mt-2 text-sm text-gray-600">
-            Please wait while we verify your email.
+            Please wait while we set up your account.
           </p>
         </div>
       </div>
