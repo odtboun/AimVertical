@@ -49,11 +49,20 @@ function SignUpForm() {
       let errorMessage = 'An unexpected error occurred';
       
       if (error instanceof Error) {
-        // If it's a Supabase error, it might have a message property
-        errorMessage = error.message;
+        // If it's a rate limit error, show a friendly message
+        if (error.message.includes('only request this after')) {
+          errorMessage = 'Please wait a moment before requesting another magic link';
+        } else {
+          errorMessage = error.message;
+        }
       } else if (typeof error === 'object' && error !== null && 'message' in error) {
-        // Handle Supabase error object
-        errorMessage = String(error.message);
+        const message = String(error.message);
+        // Check for rate limit message in error object
+        if (message.includes('only request this after')) {
+          errorMessage = 'Please wait a moment before requesting another magic link';
+        } else {
+          errorMessage = message;
+        }
       }
       
       setError(errorMessage);
