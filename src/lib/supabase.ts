@@ -86,14 +86,25 @@ export async function createUserProfile(userId: string, email: string, plan: str
 
 // Helper function to sign up a user with magic link
 export const signUpWithMagicLink = async (email: string, plan: string, interval: string) => {
-  const { data, error } = await supabase.auth.signInWithOtp({
-    email,
-    options: {
-      data: {
-        plan,
-        interval,
+  try {
+    const { data, error } = await supabase.auth.signInWithOtp({
+      email,
+      options: {
+        data: {
+          plan,
+          interval,
+        },
+        emailRedirectTo: `${window.location.origin}/auth/callback`,
       },
-    },
-  });
-  return { data, error: error || { message: 'An unexpected error occurred' } };
+    });
+
+    if (error) {
+      console.error('Supabase auth error:', error);
+    }
+    
+    return { data, error };
+  } catch (error) {
+    console.error('Unexpected error in signUpWithMagicLink:', error);
+    return { data: null, error: error instanceof Error ? error : new Error('An unexpected error occurred') };
+  }
 }; 

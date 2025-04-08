@@ -39,10 +39,23 @@ function SignUpForm() {
     try {
       const { error: signUpError } = await signUpWithMagicLink(email, plan, interval);
 
-      if (signUpError) throw signUpError;
+      if (signUpError) {
+        console.error('Signup error:', signUpError);
+        throw signUpError;
+      }
       setSuccess(true);
     } catch (error: unknown) {
-      const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
+      console.error('Error in handleSignUp:', error);
+      let errorMessage = 'An unexpected error occurred';
+      
+      if (error instanceof Error) {
+        // If it's a Supabase error, it might have a message property
+        errorMessage = error.message;
+      } else if (typeof error === 'object' && error !== null && 'message' in error) {
+        // Handle Supabase error object
+        errorMessage = String(error.message);
+      }
+      
       setError(errorMessage);
     } finally {
       setLoading(false);
